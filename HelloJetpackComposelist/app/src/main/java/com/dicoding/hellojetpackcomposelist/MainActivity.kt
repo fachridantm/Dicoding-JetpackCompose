@@ -13,23 +13,62 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.dicoding.hellojetpackcomposelist.ui.theme.HelloJetpackComposelistTheme
+import com.dicoding.hellojetpackcomposelist.ui.theme.HelloJetpackComposeListTheme
+
+private val sampleName = listOf(
+    "Andre",
+    "Desta",
+    "Parto",
+    "Wendy",
+    "Komeng",
+    "Raffi Ahmad",
+    "Andhika Pratama",
+    "Vincent Ryan Rompies"
+)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HelloJetpackComposelistTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+            HelloJetpackComposeListTheme {
+                HelloJetpackComposeListApp()
             }
         }
+    }
+}
+
+@Composable
+fun HelloJetpackComposeListApp() {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colors.background
+    ) {
+        GreetingList(sampleName)
+    }
+}
+
+@Preview(showBackground = true, device = Devices.PIXEL_4)
+@Composable
+fun HelloJetpackComposeListAppPreview() {
+    HelloJetpackComposeListTheme {
+        HelloJetpackComposeListApp()
+    }
+}
+
+@Composable
+fun GreetingList(names: List<String>) {
+    if (names.isNotEmpty()) {
+        Column {
+            for (name in names) {
+                Greeting(name)
+            }
+        }
+    } else {
+        Text("No people to greet :(")
     }
 }
 
@@ -53,13 +92,5 @@ fun Greeting(name: String) {
             )
             Text(text = "Welcome to Dicoding")
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    HelloJetpackComposelistTheme {
-        Greeting("Android")
     }
 }
