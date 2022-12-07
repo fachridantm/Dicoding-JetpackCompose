@@ -22,9 +22,9 @@ import com.dicoding.jetcoffee.model.dummyBestSellerMenu
 import com.dicoding.jetcoffee.model.dummyCategory
 import com.dicoding.jetcoffee.model.dummyMenu
 import com.dicoding.jetcoffee.ui.components.CategoryItem
+import com.dicoding.jetcoffee.ui.components.HomeSection
 import com.dicoding.jetcoffee.ui.components.MenuItem
 import com.dicoding.jetcoffee.ui.components.SearchBar
-import com.dicoding.jetcoffee.ui.components.SectionText
 import com.dicoding.jetcoffee.ui.theme.JetCoffeeTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,12 +42,17 @@ class MainActivity : ComponentActivity() {
 fun JetCoffeeApp() {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         Banner()
-        SectionText(stringResource(R.string.section_category))
-        CategoryRow()
-        SectionText(stringResource(R.string.section_favorite_menu))
-        MenuRow(dummyMenu)
-        SectionText(stringResource(R.string.section_best_seller_menu))
-        MenuRow(dummyBestSellerMenu)
+        // Cara 1 : Named Parameter
+        HomeSection(
+            title = stringResource(R.string.section_category),
+            content = { CategoryRow() }
+        )
+        // Cara 2 : Input argument one by one
+        HomeSection(stringResource(R.string.section_favorite_menu), Modifier, { MenuRow(dummyMenu) })
+        // Cara 3 : Move out last lambda from parenthesis
+        HomeSection(stringResource(R.string.section_best_seller_menu)) {
+            MenuRow(dummyBestSellerMenu)
+        }
     }
 }
 
