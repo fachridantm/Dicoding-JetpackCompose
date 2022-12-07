@@ -31,12 +31,18 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+enum class Scale(val scaleName: String) {
+    CELSIUS("Celsius"),
+    FAHRENHEIT("Fahrenheit")
+}
+
 @Composable
 fun MyTemperatureConverterApp() {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Column {
             StatefulTemperatureInput()
             ConverterApp()
+            TwoWayConverterApp()
         }
     }
 }
@@ -105,6 +111,58 @@ fun StatelessTemperatureInput(
         Text(stringResource(R.string.temperature_fahrenheit, output))
     }
 }
+
+@Composable
+fun GeneralTemperatureInput(
+    scale: Scale,
+    input: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier) {
+        OutlinedTextField(
+            value = input,
+            label = { Text(stringResource(R.string.enter_temperature, scale.scaleName)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            onValueChange = onValueChange)
+    }
+}
+
+@Composable
+private fun TwoWayConverterApp(
+    modifier: Modifier = Modifier,
+) {
+    var celsius by remember { mutableStateOf("") }
+    var fahrenheit by remember { mutableStateOf("") }
+    Column(modifier.padding(16.dp)) {
+        Text(
+            text = stringResource(R.string.two_way_converter),
+            style = MaterialTheme.typography.h5
+        )
+        GeneralTemperatureInput(
+            scale = Scale.FAHRENHEIT,
+            input = celsius,
+            onValueChange = { newInput ->
+                celsius = newInput
+                fahrenheit = convertToFahrenhait(newInput)
+            },
+        )
+        GeneralTemperatureInput(
+            scale = Scale.CELSIUS,
+            input = fahrenheit,
+            onValueChange = { newInput ->
+                fahrenheit = newInput
+                celsius = convertToCelsius(newInput)
+            },
+        )
+
+    }
+}
+
+private fun convertToCelsius(fahrenheit: String) =
+    fahrenheit.toDoubleOrNull()?.let {
+        (it - 32) * 5 / 9
+    }.toString()
 
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
