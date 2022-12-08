@@ -69,11 +69,6 @@ fun StatefulTemperatureInput(
     }
 }
 
-private fun convertToFahrenhait(celsius: String) =
-    celsius.toDoubleOrNull()?.let {
-        (it * 9 / 5) + 32
-    }?.toString() ?: ""
-
 @Composable
 fun ConverterApp(
     modifier: Modifier = Modifier,
@@ -138,25 +133,32 @@ private fun TwoWayConverterApp(
         Text(
             text = stringResource(R.string.two_way_converter),
             style = MaterialTheme.typography.h5
-        )
+        ),
         GeneralTemperatureInput(
-            scale = Scale.FAHRENHEIT,
+            scale = Scale.CELSIUS,
             input = celsius,
             onValueChange = { newInput ->
                 celsius = newInput
-                fahrenheit = convertToFahrenhait(newInput)
+                fahrenheit = convertToFahrenheit(newInput).
+
             },
-        )
+        ),
         GeneralTemperatureInput(
-            scale = Scale.CELSIUS,
+            scale = Scale.FAHRENHEIT,
             input = fahrenheit,
             onValueChange = { newInput ->
                 fahrenheit = newInput
                 celsius = convertToCelsius(newInput)
             },
         )
-
     }
+}
+
+fun convertToFahrenheit(celsius: String) =
+    celsius.toDoubleOrNull()?.let {
+        (it * 9 / 5 + 32).toString()
+    }
+
 }
 
 private fun convertToCelsius(fahrenheit: String) =
