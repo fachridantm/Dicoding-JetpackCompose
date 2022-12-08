@@ -1,6 +1,5 @@
 package com.dicoding.mynavdrawer
 
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
@@ -17,61 +16,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dicoding.mynavdrawer.ui.theme.MyNavDrawerTheme
-import kotlinx.coroutines.launch
 
 @Composable
 fun MyNavDrawerApp() {
-    val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
+    val appState = rememberMyNavDrawerState()
 
     Scaffold(
-        scaffoldState = scaffoldState,
+        scaffoldState = appState.scaffoldState,
         topBar = {
             MyTopBar(
-                onMenuClick = {
-                    scope.launch {
-                        scaffoldState.drawerState.open()
-                    }
-                }
+                onMenuClick = appState::onMenuClick
             )
         },
         drawerContent = {
             MyDrawerContent(
-                onItemSelected = { title ->
-                    scope.launch {
-                        scaffoldState.apply {
-                            drawerState.close()
-                            val snackbarResult = snackbarHostState.showSnackbar(
-                                message = context.resources.getString(R.string.coming_soon, title),
-                                actionLabel = context.resources.getString(R.string.subscribe_question)
-                            )
-                            if (snackbarResult == SnackbarResult.ActionPerformed) {
-                                Toast.makeText(
-                                    context,
-                                    context.resources.getString(R.string.subscribed_info),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-                    }
-                },
-                onBackPressed = {
-                    if (scaffoldState.drawerState.isOpen) {
-                        scope.launch {
-                            scaffoldState.drawerState.close()
-                        }
-                    }
-                }
+                onItemSelected = appState::onItemSelected,
+                onBackPressed = appState::onBackPressed
             )
         },
-        drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
+        drawerGesturesEnabled = appState.scaffoldState.drawerState.isOpen,
     ) { paddingValues ->
         Box(
             modifier = Modifier
