@@ -30,6 +30,7 @@ fun CartScreen(
             Injection.provideRepository()
         )
     ),
+    onOrderButtonClicked: (String) -> Unit,
 ) {
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
@@ -42,6 +43,7 @@ fun CartScreen(
                     onProductCountChanged = { rewardId, count ->
                         viewModel.updateOrderReward(rewardId, count)
                     },
+                    onOrderButtonClicked = onOrderButtonClicked,
                 )
             }
             is UiState.Error -> {}
@@ -53,12 +55,18 @@ fun CartScreen(
 fun CartContent(
     state: CartState,
     onProductCountChanged: (id: Long, count: Int) -> Unit,
+    onOrderButtonClicked: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier) {
+    val shareMessage = stringResource(
+        R.string.share_message,
+        state.orderReward.count(),
+        state.totalRequiredPoint
+    )
+    Column(modifier = modifier.fillMaxSize()) {
         TopAppBar(backgroundColor = MaterialTheme.colors.surface) {
             Text(
-                text = stringResource(id = R.string.menu_cart),
+                text = stringResource(R.string.menu_cart),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp),
@@ -67,27 +75,29 @@ fun CartContent(
                 textAlign = TextAlign.Center
             )
         }
-    }
-    OrderButton(
-        text = stringResource(R.string.total_order, state.totalRequiredPoint),
-        enabled = state.orderReward.isNotEmpty(),
-        onClick = {},
-        modifier = Modifier.padding(16.dp)
-    )
-    LazyColumn(
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        items(state.orderReward, key = { it.reward.id }) { item ->
-            CartItem(
-                rewardId = item.reward.id,
-                image = item.reward.image,
-                title = item.reward.title,
-                totalPoint = item.reward.requiredPoint * item.count,
-                count = item.count,
-                onProductCountChanged = onProductCountChanged,
-            )
-            Divider()
+        OrderButton(
+            text = stringResource(R.string.total_order, state.totalRequiredPoint),
+            enabled = state.orderReward.isNotEmpty(),
+            onClick = {
+                onOrderButtonClicked(shareMessage)
+            },
+            modifier = Modifier.padding(16.dp)
+        )
+        LazyColumn(
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(state.orderReward, key = { it.reward.id }) { item ->
+                CartItem(
+                    rewardId = item.reward.id,
+                    image = item.reward.image,
+                    title = item.reward.title,
+                    totalPoint = item.reward.requiredPoint * item.count,
+                    count = item.count,
+                    onProductCountChanged = onProductCountChanged,
+                )
+                Divider()
+            }
         }
     }
 }

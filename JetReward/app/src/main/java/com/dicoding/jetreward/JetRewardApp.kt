@@ -1,5 +1,7 @@
 package com.dicoding.jetreward
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -9,6 +11,7 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -43,19 +46,22 @@ fun JetRewardApp(
         },
         modifier = modifier,
     ) { innerPadding ->
-        NavHost(
-            navController = navController,
+        NavHost(navController = navController,
             startDestination = Screen.Home.route,
-            modifier = modifier.padding(innerPadding)
-        ) {
+            modifier = modifier.padding(innerPadding)) {
             composable(Screen.Home.route) {
-                HomeScreen(
-                    navigateToDetail = { rewardId ->
-                        navController.navigate(Screen.DetailReward.createRoute(rewardId))
-                    }
-                )
+                HomeScreen(navigateToDetail = { rewardId ->
+                    navController.navigate(Screen.DetailReward.createRoute(rewardId))
+                })
             }
-            composable(Screen.Cart.route) { CartScreen() }
+            composable(Screen.Cart.route) {
+                val context = LocalContext.current
+                CartScreen(
+                    onOrderButtonClicked = { message ->
+                        shareOrder(context, message)
+                    }
+                ) 
+            }
             composable(Screen.Profile.route) { ProfileScreen() }
             composable(
                 route = Screen.DetailReward.route,
@@ -107,10 +113,9 @@ private fun BottomBar(
         )
         BottomNavigation {
             navigationItem.map { item ->
-                BottomNavigationItem(
-                    icon = { Icon(item.icon, contentDescription = item.title) },
+                BottomNavigationItem(icon = { Icon(item.icon, contentDescription = item.title) },
                     label = { Text(text = item.title) },
-                    selected =  currentRoute == item.screen.route,
+                    selected = currentRoute == item.screen.route,
                     onClick = {
                         navController.navigate(item.screen.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
@@ -119,11 +124,20 @@ private fun BottomBar(
                             restoreState = true
                             launchSingleTop = true
                         }
-                    }
-                )
+                    })
             }
         }
     }
+}
+
+private fun shareOrder(context: Context, summary: String) {
+    val intent = Intent().apply {
+        type = "text/plain"
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.dicoding_reward))
+        putExtra(Intent.EXTRA_TEXT, summary)
+    }
+    context.startActivity(Intent.createChooser(intent, context.getString(R.string.dicoding_reward)))
 }
 
 @Preview(showBackground = true, showSystemUi = true)
