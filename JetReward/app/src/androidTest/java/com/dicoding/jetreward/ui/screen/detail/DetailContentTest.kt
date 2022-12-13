@@ -63,4 +63,20 @@ class DetailContentTest {
             onNodeWithContentDescription("Order Button").assertIsEnabled()
         }
     }
+
+    @Test
+    fun increaseProduct_correctCounter() {
+        with(composeTestRule) {
+            onNodeWithStringId(R.string.plus_symbol).performClick().performClick()
+            onNodeWithTag("count").assert(hasText("2"))
+        }
+    }
+
+    @Test
+    fun decreaseProduct_stillZero() {
+        with(composeTestRule) {
+            onNodeWithStringId(R.string.minus_symbol).performClick()
+            onNodeWithTag("count").assert(hasText("0"))
+        }
+    }
 }
