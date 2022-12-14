@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Bangkit Merch Store</string>
-    <string name="minus_symbol">—</string>
     <string name="menu_home">Home</string>
     <string name="menu_cart">Keranjang</string>
     <string name="menu_profile">Profile</string>
