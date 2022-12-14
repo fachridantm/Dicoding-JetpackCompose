@@ -1,6 +1,9 @@
 package com.dicoding.newsapp.ui.detail
 
 import android.os.Bundle
+import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.viewinterop.AndroidView
 import com.dicoding.newsapp.R
 import com.dicoding.newsapp.data.local.entity.NewsEntity
 import com.dicoding.newsapp.ui.ViewModelFactory
@@ -102,9 +106,23 @@ fun NewsDetailContent(
             )
         }
     ) { innerPadding ->
-        Box(modifier = Modifier
-            .padding(innerPadding)
-            .fillMaxSize()) {}
+        Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
+            AndroidView(
+                factory = { context ->
+                    WebView(context).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
+                        webViewClient = WebViewClient()
+                        loadUrl(url)
+                    }
+                },
+                update = { webView ->
+                    webView.loadUrl(url)
+                }
+            )
+        }
     }
 }
 
