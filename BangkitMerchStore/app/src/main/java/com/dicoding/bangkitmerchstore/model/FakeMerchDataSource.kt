@@ -11,7 +11,8 @@ object FakeMerchDataSource {
             "Exclusive earbuds dengan logo bangkit berwarna putih yang terdapat di bagian depan pouch",
             6000
         ),
-        Merch(2,
+        Merch(
+            2,
             R.drawable.bangkit_jackets,
             "Jacket",
             "Jaket bangkit dengan material parasut yang membuat jaket ini waterproof dan sangat nyaman dipakai serta terdapat logo bangkit di bagian depan",
@@ -24,12 +25,15 @@ object FakeMerchDataSource {
             "Pouch dengan logo bangkit yang berisi headset serta charger type-c",
             1000
         ),
-        Merch(4,
+        Merch(
+            4,
             R.drawable.bangkit_tumblr,
             "Digital Tumblr",
             "Digital tumblr bangkit berwarna merah dengan stiker bangkit berwarna putih dan terdapat suhu temperature check di bagian tutup tumblr",
-            1500),
-        Merch(5,
+            1500
+        ),
+        Merch(
+            5,
             R.drawable.bangkit_tshirt,
             "T-shirt",
             "T-shirt bangkit berwarna merah dengan logo bangkit berwarna putih di bagian depan",
@@ -67,6 +71,7 @@ object FakeMerchDataSource {
             R.drawable.tokopedia_gift_card,
             "Tokopedia Gift Card - 100k",
             "TokoPedia Gift Card merupakan voucher Gopay Coins yang dapat digunakan untuk berbelanja di Tokopedia",
-            100),
+            100
+        ),
     )
 }

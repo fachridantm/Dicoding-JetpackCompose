@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dicoding.bangkitmerchstore.R
@@ -25,6 +26,7 @@ fun SearchBar(
         value = query,
         onValueChange = onQueryChange,
         maxLines = 1,
+        singleLine = true,
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
@@ -45,5 +47,6 @@ fun SearchBar(
             .fillMaxWidth()
             .heightIn(min = 48.dp)
             .clip(RoundedCornerShape(16.dp))
+            .testTag("SearchBar")
     )
 }

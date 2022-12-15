@@ -13,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,7 +47,8 @@ fun HomeScreen(
                     SearchBar(
                         query = query,
                         onQueryChange = viewModel::findMerch,
-                        modifier = modifier.background(color = MaterialTheme.colors.primary)
+                        modifier = modifier
+                            .background(color = MaterialTheme.colors.primary)
                     )
                     if (stateHolder.data.isEmpty()) {
                         NotFound()
@@ -92,7 +94,7 @@ fun HomeContent(
         contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier
+        modifier = modifier.testTag("MerchList")
     ) {
         items(orderMerch) { data ->
             MerchItem(
