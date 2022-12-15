@@ -20,7 +20,7 @@ import com.dicoding.bangkitmerchstore.ui.theme.BangkitMerchStoreTheme
 import com.dicoding.bangkitmerchstore.ui.theme.Shapes
 
 @Composable
-fun RewardItem(
+fun MerchItem(
     image: Int,
     title: String,
     requiredPoint: Int,
@@ -55,8 +55,8 @@ fun RewardItem(
 
 @Composable
 @Preview(showBackground = true)
-fun RewardItemPreview() {
+fun MerchItemPreview() {
     BangkitMerchStoreTheme {
-        RewardItem(R.drawable.bangkit_tumblr, "Digital Tumblr", 1500)
+        MerchItem(R.drawable.bangkit_tumblr, "Digital Tumblr", 1500)
     }
 }
