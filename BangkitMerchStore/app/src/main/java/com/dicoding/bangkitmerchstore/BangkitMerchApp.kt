@@ -29,6 +29,7 @@ import com.dicoding.bangkitmerchstore.ui.screen.detail.DetailScreen
 import com.dicoding.bangkitmerchstore.ui.screen.home.HomeScreen
 import com.dicoding.bangkitmerchstore.ui.screen.profile.ProfileScreen
 import com.dicoding.bangkitmerchstore.ui.theme.BangkitMerchStoreTheme
+import com.dicoding.bangkitmerchstore.ui.theme.Red
 
 @Composable
 fun BangkitMerchApp(
@@ -137,7 +138,7 @@ private fun BottomBar(
                 screen = Screen.Profile
             ),
         )
-        BottomNavigation {
+        BottomNavigation(backgroundColor = Red) {
             navigationItems.map { item ->
                 BottomNavigationItem(
                     icon = {

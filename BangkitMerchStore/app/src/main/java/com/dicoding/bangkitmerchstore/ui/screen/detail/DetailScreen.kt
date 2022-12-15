@@ -107,6 +107,7 @@ fun DetailContent(
                 )
             }
             Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(16.dp)
             ) {

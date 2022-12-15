@@ -8,7 +8,7 @@ object FakeMerchDataSource {
             1,
             R.drawable.bangkit_earbuds,
             "Exclusive earbuds",
-            "Digital tumblr bangkit berwarna merah dengan stiker bangkit berwarna putih dan terdapat suhu temperature check di bagian tutup tumblr",
+            "Exclusive earbuds dengan logo bangkit berwarna putih yang terdapat di bagian depan pouch",
             6000
         ),
         Merch(2,
@@ -53,14 +53,14 @@ object FakeMerchDataSource {
             8,
             R.drawable.bangkit_notebook,
             "Notebook",
-            "Notebook beserta pulpen bangkit",
+            "Notebook beserta pulpen bangkit berwarna cream dengan logo bangkit berwarna putih di bagian depan",
             300
         ),
         Merch(
             9,
             R.drawable.bangkit_stickers,
             "Stickerset",
-            "Stickerset bangkit berisi 10 buah stiker",
+            "Stickerset bangkit berisi 10 buah stiker dengan logo bangkit berwarna merah dan hitam yang berbeda-beda ukuran sesuai dengan kebutuhan",
             50),
         Merch(
             10,

@@ -58,14 +58,14 @@ fun CartScreen(
 @Composable
 fun EmptyCart() {
     Column(
+        verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
         Text(
             text = stringResource(R.string.cart_empty),
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
             textAlign = TextAlign.Center
         )
     }

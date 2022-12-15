@@ -8,14 +8,14 @@ import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
     primary = Red,
-    primaryVariant = Purple700,
+    primaryVariant = RedLight,
     secondary = White
 )
 
 private val LightColorPalette = lightColors(
     primary = Red,
-    primaryVariant = Purple700,
-    secondary = White
+    primaryVariant = RedLight,
+    secondary = Black
 
     /* Other default colors to override
     background = Color.White,
@@ -33,7 +33,7 @@ fun BangkitMerchStoreTheme(
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
-        DarkColorPalette
+        LightColorPalette
     } else {
         LightColorPalette
     }
