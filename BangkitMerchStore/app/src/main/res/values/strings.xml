@@ -10,7 +10,7 @@
     <string name="add_to_cart">Tambah ke Keranjang : %d Pts</string>
     <string name="total_order">Total pesanan : %d Pts</string>
     <string name="back">Back</string>
-    <string name="dicoding_reward">Dicoding Reward</string>
-    <string name="share_message">Hey, I have redeem %1$d rewards in Dicoding with total %2$d Points. Do you want too?</string>
+    <string name="bangkit_merch">Dicoding Reward</string>
+    <string name="share_message">Hey, I have redeem %1$d merch in Bangkit Merch Store with total %2$d Points. Do you want too? Join Bangkit Academy now at https://g.co/bangkit ! </string>
     <string name="cart_empty">Keranjang kosong, silakan tambahkan merch terlebih dahulu</string>
 </resources>
