@@ -53,6 +53,7 @@ fun DetailScreen(
                 DetailContent(
                     data.merch.image,
                     data.merch.title,
+                    data.merch.desc,
                     data.merch.requiredPoint,
                     data.count,
                     onBackClick = navigateBack,
@@ -71,6 +72,7 @@ fun DetailScreen(
 fun DetailContent(
     @DrawableRes image: Int,
     title: String,
+    desc: String,
     basePoint: Int,
     count: Int,
     onBackClick: () -> Unit,
@@ -123,7 +125,7 @@ fun DetailContent(
                     color = MaterialTheme.colors.secondary
                 )
                 Text(
-                    text = stringResource(R.string.lorem_ipsum),
+                    text = desc,
                     style = MaterialTheme.typography.body2,
                     textAlign = TextAlign.Justify,
                 )
@@ -164,6 +166,7 @@ fun DetailContentPreview() {
         DetailContent(
             R.drawable.bangkit_tumblr,
             "Digital Tumblr",
+            "Digital tumblr bangkit berwarna merah dengan stiker bangkit berwarna putih dan terdapat suhu temperature check di bagian tutup tumblr",
             1500,
             1,
             onBackClick = {},
