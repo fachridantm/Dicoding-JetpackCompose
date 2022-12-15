@@ -49,6 +49,15 @@ class BangkitRepository {
             }
     }
 
+    fun findMerch(query: String): Flow<List<OrderMerch>> {
+        return getAllMerch()
+            .map { list ->
+                list.filter {
+                    it.merch.title.contains(query, ignoreCase = true)
+                }
+            }
+    }
+
     companion object {
         @Volatile
         private var instance: BangkitRepository? = null

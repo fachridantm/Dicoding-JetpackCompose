@@ -14,4 +14,6 @@
     <string name="share_message">Hey, I have redeem %1$d merch in Bangkit Merch Store with total %2$d Points. Do you want too? Join Bangkit Academy now at https://g.co/bangkit ! </string>
     <string name="cart_empty">Keranjang kosong, silakan tambahkan merch terlebih dahulu</string>
     <string name="profile_photo">Foto profil</string>
+    <string name="find_merch">Cari merch yang kamu inginkan...</string>
+    <string name="not_found">Merch yang anda cari tidak dapat ditemukan</string>
 </resources>
