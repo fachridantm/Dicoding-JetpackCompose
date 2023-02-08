@@ -37,7 +37,7 @@ fun HomeScreen(
 ) {
     val query by viewModel.query
 
-    viewModel.stateHolder.collectAsState(initial = StateHolder.Loading).value.let { stateHolder ->
+    viewModel.stateHome.collectAsState(initial = StateHolder.Loading).value.let { stateHolder ->
         when (stateHolder) {
             is StateHolder.Loading -> {
                 viewModel.getAllMerch()
@@ -47,7 +47,7 @@ fun HomeScreen(
                     SearchBar(
                         query = query,
                         onQueryChange = viewModel::findMerch,
-                        modifier = modifier
+                        modifier = Modifier
                             .background(color = MaterialTheme.colors.primary)
                     )
                     if (stateHolder.data.isEmpty()) {
@@ -96,7 +96,7 @@ fun HomeContent(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier.testTag("MerchList")
     ) {
-        items(orderMerch) { data ->
+        items(orderMerch, key = {it.merch.id}) { data ->
             MerchItem(
                 image = data.merch.image,
                 title = data.merch.title,
