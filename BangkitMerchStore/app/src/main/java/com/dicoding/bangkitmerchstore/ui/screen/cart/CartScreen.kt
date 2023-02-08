@@ -33,7 +33,7 @@ fun CartScreen(
     ),
     onOrderButtonClicked: (String) -> Unit,
 ) {
-    viewModel.stateHolder.collectAsState(initial = StateHolder.Loading).value.let { stateHolder ->
+    viewModel.stateCart.collectAsState(initial = StateHolder.Loading).value.let { stateHolder ->
         when (stateHolder) {
             is StateHolder.Loading -> {
                 viewModel.getAddedOrderMerch()
