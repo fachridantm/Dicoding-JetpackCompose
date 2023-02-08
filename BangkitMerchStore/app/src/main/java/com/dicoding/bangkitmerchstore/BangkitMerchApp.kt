@@ -30,6 +30,7 @@ import com.dicoding.bangkitmerchstore.ui.screen.home.HomeScreen
 import com.dicoding.bangkitmerchstore.ui.screen.profile.ProfileScreen
 import com.dicoding.bangkitmerchstore.ui.theme.BangkitMerchStoreTheme
 import com.dicoding.bangkitmerchstore.ui.theme.Red
+import com.dicoding.bangkitmerchstore.utils.Constants.MERCH_ID
 
 @Composable
 fun BangkitMerchApp(
@@ -72,9 +73,9 @@ fun BangkitMerchApp(
             }
             composable(
                 route = Screen.DetailMerch.route,
-                arguments = listOf(navArgument("merchId") { type = NavType.LongType }),
+                arguments = listOf(navArgument(MERCH_ID) { type = NavType.LongType }),
             ) {
-                val id = it.arguments?.getLong("merchId") ?: -1L
+                val id = it.arguments?.getLong(MERCH_ID) ?: -1L
                 DetailScreen(
                     merchId = id,
                     navigateBack = {
