@@ -9,19 +9,19 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class CartViewModel(private val repository: BangkitRepository) : ViewModel() {
-    private val _stateHolder: MutableStateFlow<StateHolder<CartState>> =
+    private val _stateCart: MutableStateFlow<StateHolder<CartState>> =
         MutableStateFlow(StateHolder.Loading)
-    val stateHolder: StateFlow<StateHolder<CartState>>
-        get() = _stateHolder
+    val stateCart: StateFlow<StateHolder<CartState>>
+        get() = _stateCart
 
     fun getAddedOrderMerch() {
         viewModelScope.launch {
-            _stateHolder.value = StateHolder.Loading
+            _stateCart.value = StateHolder.Loading
             repository.getAddedOrderMerch()
                 .collect { orderMerch ->
                     val totalRequiredPoint =
                         orderMerch.sumOf { it.merch.requiredPoint * it.count }
-                    _stateHolder.value =
+                    _stateCart.value =
                         StateHolder.Success(CartState(orderMerch, totalRequiredPoint))
                 }
         }

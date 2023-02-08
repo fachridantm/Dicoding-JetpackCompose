@@ -13,19 +13,19 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: BangkitRepository) : ViewModel() {
-    private val _stateHolder: MutableStateFlow<StateHolder<List<OrderMerch>>> =
+    private val _stateHome: MutableStateFlow<StateHolder<List<OrderMerch>>> =
         MutableStateFlow(StateHolder.Loading)
-    val stateHolder: StateFlow<StateHolder<List<OrderMerch>>>
-        get() = _stateHolder
+    val stateHome: StateFlow<StateHolder<List<OrderMerch>>>
+        get() = _stateHome
 
     fun getAllMerch() {
         viewModelScope.launch {
             repository.getAllMerch()
                 .catch {
-                    _stateHolder.value = StateHolder.Error(it.message.toString())
+                    _stateHome.value = StateHolder.Error(it.message.toString())
                 }
                 .collect { orderMerch ->
-                    _stateHolder.value = StateHolder.Success(orderMerch)
+                    _stateHome.value = StateHolder.Success(orderMerch)
                 }
         }
     }
@@ -37,10 +37,10 @@ class HomeViewModel(private val repository: BangkitRepository) : ViewModel() {
             _query.value = newQuery
             repository.findMerch(_query.value)
                 .catch {
-                    _stateHolder.value = StateHolder.Error(it.message.toString())
+                    _stateHome.value = StateHolder.Error(it.message.toString())
                 }
                 .collect { merch ->
-                    _stateHolder.value = StateHolder.Success(merch)
+                    _stateHome.value = StateHolder.Success(merch)
                 }
         }
     }

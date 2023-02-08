@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class DetailMerchViewModel(private val repository: BangkitRepository) : ViewModel() {
-    private val _stateHolder: MutableStateFlow<StateHolder<OrderMerch>> =
+    private val _stateDetail: MutableStateFlow<StateHolder<OrderMerch>> =
         MutableStateFlow(StateHolder.Loading)
-    val stateHolder: StateFlow<StateHolder<OrderMerch>>
-        get() = _stateHolder
+    val stateDetail: StateFlow<StateHolder<OrderMerch>>
+        get() = _stateDetail
 
     fun getMerchById(merchId: Long) {
         viewModelScope.launch {
-            _stateHolder.value = StateHolder.Loading
-            _stateHolder.value = StateHolder.Success(repository.getOrderMerchById(merchId))
+            _stateDetail.value = StateHolder.Loading
+            _stateDetail.value = StateHolder.Success(repository.getOrderMerchById(merchId))
         }
     }
 
