@@ -43,7 +43,7 @@ fun DetailScreen(
     navigateBack: () -> Unit,
     navigateToCart: () -> Unit,
 ) {
-    viewModel.stateHolder.collectAsState(initial = StateHolder.Loading).value.let { stateHolder ->
+    viewModel.stateDetail.collectAsState(initial = StateHolder.Loading).value.let { stateHolder ->
         when (stateHolder) {
             is StateHolder.Loading -> {
                 viewModel.getMerchById(merchId)
